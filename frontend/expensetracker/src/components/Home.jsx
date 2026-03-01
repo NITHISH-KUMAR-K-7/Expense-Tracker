@@ -1,0 +1,88 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import ExpenseForm from "./ExpenseForm";
+import ExpenseList from "./ExpenseList";
+import Filter from "./Filter";
+
+
+const Home = () => {
+
+    const API = "http://localhost:8000/api/expense";
+
+
+    const [expenses, setExpenses] = useState([]);
+    const [filter, setFilter] = useState("All");
+
+    const fetchExpenses = async () => {
+      const res = await axios.get(API);
+      setExpenses(res.data);
+    };
+
+    useEffect(() => {
+      fetchExpenses();
+    }, []);
+
+    const addExpense = async (data) => {
+      const res = await axios.post(API, data);
+      setExpenses([res.data, ...expenses]);
+    };
+
+    const deleteExpense = async (id) => {
+      await axios.delete(`${API}/${id}`);
+      setExpenses(expenses.filter((exp) => exp._id !== id));
+    };
+
+    const filteredExpenses =
+      filter === "All"
+        ? expenses
+        : expenses.filter((exp) => exp.category === filter);
+
+    const totalAmount = filteredExpenses.reduce(
+      (acc, curr) => acc + curr.amount,
+      0,
+    );
+
+  return (
+    <>
+      {/* <div className="max-w-2xl mx-auto p-5">
+        <h1 className="text-2xl font-bold mb-4">Expense Tracker</h1>
+
+        <ExpenseForm addExpense={addExpense} />
+        <Filter filter={filter} setFilter={setFilter} />
+
+        <h2 className="text-lg font-semibold mt-4">Total: ₹ {totalAmount}</h2>
+
+        <ExpenseList
+          expenses={filteredExpenses}
+          deleteExpense={deleteExpense}
+        />
+      </div> */}
+
+      <div className="grid grid-cols-2 min-h-screen gap-5 bg-gray-100">
+        <div className="mt-10">
+          <h1 className="text-2xl text-center font-bold">
+            Expense Tracker
+          </h1>
+
+          <ExpenseForm addExpense={addExpense} />
+        </div>
+
+        <div className="mt-10 p-2 ">
+          <div className="flex flex-col ml-5">
+            <Filter filter={filter} setFilter={setFilter} />
+
+            <h2 className="text-lg font-bold mt-4">Total: ₹ {totalAmount}</h2>
+          </div>
+          <div className="flex flex-col ml-15">
+            <ExpenseList
+              expenses={filteredExpenses}
+              deleteExpense={deleteExpense}
+            />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Home;
