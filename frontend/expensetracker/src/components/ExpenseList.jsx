@@ -18,7 +18,7 @@ const ExpenseList = ({ expenses, deleteExpense }) => {
             <div className="">
               <p className="font-semibold">{exp.title}</p>
               <p>
-                {exp.category} | {new Date(exp.date).toLocaleDateString()}
+                {exp.category} | {new Date(exp.date).toLocaleDateString("en-IN")}
               </p>
             </div>
             <div className='flex flex-col items-center'>
