@@ -3,6 +3,7 @@ import axios from "axios";
 import ExpenseForm from "./ExpenseForm";
 import ExpenseList from "./ExpenseList";
 import Filter from "./Filter";
+import { LuIndianRupee } from "react-icons/lu";
 
 
 const Home = () => {
@@ -57,7 +58,7 @@ const Home = () => {
           <div className="flex flex-col ml-5">
             <Filter filter={filter} setFilter={setFilter} />
 
-            <h2 className="text-lg font-bold mt-4">Total: ₹ {totalAmount}</h2>
+            <h2 className="text-lg font-bold mt-4 flex items-center">Total: <LuIndianRupee /> {totalAmount}</h2>
           </div>
           <div className="flex flex-col ml-15">
             <ExpenseList
