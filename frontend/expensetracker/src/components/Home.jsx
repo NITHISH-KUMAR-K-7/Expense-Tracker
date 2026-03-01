@@ -43,21 +43,7 @@ const Home = () => {
     );
 
   return (
-    <>
-      {/* <div className="max-w-2xl mx-auto p-5">
-        <h1 className="text-2xl font-bold mb-4">Expense Tracker</h1>
-
-        <ExpenseForm addExpense={addExpense} />
-        <Filter filter={filter} setFilter={setFilter} />
-
-        <h2 className="text-lg font-semibold mt-4">Total: ₹ {totalAmount}</h2>
-
-        <ExpenseList
-          expenses={filteredExpenses}
-          deleteExpense={deleteExpense}
-        />
-      </div> */}
-
+    <>  
       <div className="grid grid-cols-2 min-h-screen gap-5 bg-gray-100">
         <div className="mt-10">
           <h1 className="text-2xl text-center font-bold">
