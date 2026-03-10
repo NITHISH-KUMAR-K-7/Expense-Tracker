@@ -9,9 +9,22 @@ connectDB()
 
 
 const app = express();
+
+const allowedOrigins = [
+  "https://expense-tracker-vert-seven-26.vercel.app"
+];
+
 app.use(cors({
-  origin:"https://expense-tracker-vert-seven-26.vercel.app",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed"));
+    }
+  },
+  credentials: true
 }));
+
 app.use(express.json());
 
 app.use('/api/expense',authExpense)
