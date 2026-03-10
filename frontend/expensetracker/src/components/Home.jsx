@@ -8,14 +8,13 @@ import { LuIndianRupee } from "react-icons/lu";
 
 const Home = () => {
 
-    const API = "http://localhost:8000/api/expense";
-
+    const API = import.meta.env.VITE_API_URL;
 
     const [expenses, setExpenses] = useState([]);
     const [filter, setFilter] = useState("All");
 
     const fetchExpenses = async () => {
-      const res = await axios.get(API);
+      const res = await axios.get(`${API}/api/expense`);
       setExpenses(res.data);
     };
 
