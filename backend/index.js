@@ -9,7 +9,9 @@ connectDB()
 
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin:"https://expense-tracker-abpq6znwc-nithish-kumar-k-7s-projects.vercel.app/",
+}));
 app.use(express.json());
 
 app.use('/api/expense',authExpense)
