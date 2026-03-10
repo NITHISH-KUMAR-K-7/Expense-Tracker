@@ -10,7 +10,7 @@ connectDB()
 
 const app = express();
 app.use(cors({
-  origin:"https://expense-tracker-abpq6znwc-nithish-kumar-k-7s-projects.vercel.app/",
+  origin:"https://expense-tracker-vert-seven-26.vercel.app",
 }));
 app.use(express.json());
 
