@@ -11,9 +11,11 @@ const app = express();
 
 // Allowed origins (dev + prod)
 const allowedOrigins = [
-  process.env.FRONTEND_DEV,   // http://localhost:5173
-  process.env.FRONTEND_PROD   // https://expense-tracker-vert-seven-26.vercel.app
-].filter(Boolean);
+  "http://localhost:5173",
+  "https://expense-tracker-vert-seven-26.vercel.app"
+];
+
+console.log("Allowed origins:", allowedOrigins);
 
 // CORS middleware
 app.use(cors({
