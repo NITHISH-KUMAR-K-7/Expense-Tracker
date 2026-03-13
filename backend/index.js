@@ -13,22 +13,25 @@ const app = express();
 const allowedOrigins = [
   process.env.FRONTEND_DEV,   // http://localhost:5173
   process.env.FRONTEND_PROD   // https://expense-tracker-vert-seven-26.vercel.app
-];
+].filter(Boolean);
 
 // CORS middleware
 app.use(cors({
   origin: function(origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.log("Blocked by CORS:", origin);
-      callback(new Error("Not allowed by CORS"));
+    if (!origin && process.env.NODE_ENV !== "production") {
+      return callback(null, true);
     }
+    if (origin && allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    console.log("Blocked by CORS:", origin);
+    callback(new Error("Not allowed by CORS"));
   },
-  methods: ["GET","POST","DELETE","OPTIONS"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
+
 
 // Handle preflight for all routes
 // app.options("*", cors({
